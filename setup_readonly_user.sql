@@ -32,8 +32,20 @@ BEGIN
 END
 $$;
 
-ALTER ROLE powell_agent_ro WITH LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION
-    NOBYPASSRLS INHERIT CONNECTION LIMIT 10 PASSWORD :agent_password;
+ALTER ROLE powell_agent_ro WITH LOGIN NOCREATEDB NOCREATEROLE INHERIT CONNECTION LIMIT 10
+    PASSWORD :agent_password;
+
+-- SUPERUSER / REPLICATION / BYPASSRLS can only be touched by a superuser, even to switch
+-- them off. Managed clouds (Neon, Supabase, RDS) give you no superuser, and there a new
+-- role never has these flags anyway, so only clear them when they are actually set.
+DO $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'powell_agent_ro'
+               AND (rolsuper OR rolreplication OR rolbypassrls)) THEN
+        EXECUTE 'ALTER ROLE powell_agent_ro WITH NOSUPERUSER NOREPLICATION NOBYPASSRLS';
+    END IF;
+END
+$$;
 
 GRANT powell_readonly TO powell_agent_ro;
 
