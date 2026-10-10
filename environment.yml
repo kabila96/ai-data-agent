@@ -1,0 +1,11 @@
+# Conda environment for Windows (Anaconda/Miniconda).
+#   conda env create -f environment.yml
+#   conda activate ai_data_agent
+name: ai_data_agent
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - -r requirements.txt

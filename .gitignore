@@ -1,0 +1,34 @@
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local application data (history, audit log, logs)
+app_data/
+saved_dashboards/*.json
+saved_dashboards/data/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Patch bundles, local reports and Streamlit secrets
+*.zip
+verification_report.txt
+.streamlit/secrets.toml

@@ -1,0 +1,14 @@
+[project]
+name = "ai-data-agent"
+version = "0.2.0"
+description = "AI data-analysis agent for PostgreSQL/PostGIS and CSV files (Streamlit)"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
